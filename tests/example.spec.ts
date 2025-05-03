@@ -21,8 +21,10 @@ test('Register new user', async ({ page }) => {
   await registerPage.enterZipCode();
   await registerPage.fillTheRegistrationForm(userData);
   await registerPage.submitRegistration();
-
-
+  await accountPage.verifyHomeLink();
+  await accountPage.verifyAboutLink();
+  await accountPage.verifyContactContent();
+  await accountPage.clickAccountService('Open New Account')
   FileManager.saveUserData(userData);
 })
 

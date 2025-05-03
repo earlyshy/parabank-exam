@@ -11,12 +11,43 @@ interface AccountService{
 export class AccountPage extends BasePage {
     accountsOverView: Locator;
     accountServiceMenu: Locator;
+    homeLink: Locator;
+    aboutLink: Locator;
+    contactLink: Locator;
+    homeContent: Locator;
+    aboutContent: Locator;
+    contactContent: Locator;
 
     constructor(page: Page){
         super(page);
         this.accountsOverView = page.locator('h1.title');
         this.accountServiceMenu = page.locator('ul.serviceMenuHorizontal, div#leftPanel ul');
+        this.homeLink = page.getByRole('link', { name: 'home', exact: true })
+        this.aboutLink = page.getByRole('link', { name: 'about', exact: true })
+        this.contactLink = page.getByRole('link', { name: 'contact', exact: true })
+        this.homeContent = page.locator('#bodyPanel #rightPanel');
+        this.aboutContent = page.locator('#bodyPanel #rightPanel');
+        this.contactContent = page.locator('#bodyPanel #rightPanel');
     }
+
+    async verifyHomeLink(): Promise<void>{
+        await expect(this.homeLink).toBeVisible();
+        await this.homeLink.click();
+        await expect(this.homeContent).toBeVisible();
+    }
+    
+    async verifyAboutLink(): Promise<void>{
+        await expect(this.aboutLink).toBeVisible();
+        await this.aboutLink.click();
+        await expect(this.aboutContent).toBeVisible();
+    }
+
+    async verifyContactContent(): Promise<void>{
+        await expect(this.contactLink).toBeVisible();
+        await this.contactLink.click();
+        await expect(this.contactContent).toBeVisible();
+    }
+
 
     async verifyAccountsOverview(){
         await expect(this.accountsOverView).toHaveText('Accounts Overview');
