@@ -1,14 +1,6 @@
-[
-  {
-    "id": "28551",
-    "type": "SAVINGS"
-  },
-  {
-    "id": "36765",
-    "type": "SAVINGS"
-  },
-  {
-    "id": "36987",
-    "type": "SAVINGS"
-  }
-]
+{
+  "id": "22779",
+  "type": "SAVINGS",
+  "existingId": "22668",
+  "existingType": "DEFAULT ACCOUNT"
+}

@@ -17,6 +17,7 @@ export class AccountPage extends BasePage {
     homeContent: Locator;
     aboutContent: Locator;
     contactContent: Locator;
+    existingAccountOverview: Locator;
 
     constructor(page: Page){
         super(page);
@@ -28,6 +29,16 @@ export class AccountPage extends BasePage {
         this.homeContent = page.locator('#bodyPanel #rightPanel');
         this.aboutContent = page.locator('#bodyPanel #rightPanel');
         this.contactContent = page.locator('#bodyPanel #rightPanel');
+        this.existingAccountOverview = page.locator('tr td:nth-child(1) > a');
+    }
+
+    async getInitialAccountId(): Promise<string> {
+        await this.page.waitForTimeout(1000);
+        const existingAccountId = await this.existingAccountOverview.textContent();
+        if(!existingAccountId){
+            throw new Error('Failed to get initial account id')
+        }
+        return existingAccountId.trim();
     }
 
     async verifyHomeLink(): Promise<void>{
@@ -70,6 +81,7 @@ export class AccountPage extends BasePage {
         const serviceLink = this.page.getByRole('link', { name: serviceName });
         await expect(serviceLink).toBeVisible();
         await serviceLink.click();
+        await this.page.waitForTimeout(1000);
     }
 
     async getAccountServiceName(): Promise<string[]> {

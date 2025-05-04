@@ -27,16 +27,20 @@ test('Register new user', async ({ page }) => {
   await accountPage.verifyHomeLink();
   await accountPage.verifyAboutLink();
   await accountPage.verifyContactContent();
+  await accountPage.clickAccountService('Accounts Overview') 
+  const existingAccountId = await accountPage.getInitialAccountId();
   await accountPage.clickAccountService('Open New Account')
   const newAccountId = await savings.createNewAccount(GLOBAL.ACCOUNT_TYPES.SAVINGS);
 
   const newAccount: Account = {
     id: newAccountId,
-    type: 'SAVINGS'
+    type: 'SAVINGS',
+    existingId: existingAccountId,
+    existingType: 'DEFAULT ACCOUNT'
   }
 
   await accountPage.clickAccountService('Transfer Funds');
-  AccountManager.saveAccount(newAccount);
+  AccountManager.saveUserData(newAccount);
   FileManager.saveUserData(userData);
 })
 
