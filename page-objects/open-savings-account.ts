@@ -11,8 +11,8 @@ export class OpenNewSavingsAccountPage extends BasePage{
 
     constructor(page: Page){
         super(page);
-        this.accountTypeSelect = page.locator('select[name="type"]');
-        this.fromAccountSelect = page.locator('select[name="fromAccountId"]');
+        this.accountTypeSelect = page.locator('select#type')
+        this.fromAccountSelect = page.locator('select#fromAccountId');
         this.openAccountButton = page.getByRole('button', { name: 'Open New Account' });
         this.newAccountId = page.locator('#newAccountId');
     }
@@ -26,6 +26,7 @@ export class OpenNewSavingsAccountPage extends BasePage{
     }
 
     async clickOpenAccountButton(): Promise<void>{
+        await this.page.waitForTimeout(1000);
         await this.openAccountButton.click();
     }
 
@@ -38,7 +39,7 @@ export class OpenNewSavingsAccountPage extends BasePage{
         return accountId.trim();
     }
 
-    async createNewAccount(accountType: string, fromAccountId: string): Promise<string>{
+    async createNewAccount(accountType: string, fromAccountId?: string): Promise<string>{
         await this.selectAccountType(accountType);
 
         if(fromAccountId){
