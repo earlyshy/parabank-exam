@@ -24,6 +24,8 @@ This framework automates interactions with the ParaBank application (https://par
 │   └── global.config.ts           # Global configuration variables  
 ├── pages/
 │   ├── account-page.ts            # Account overview page interactions
+│   ├── find-trasanction-page.ts   # Find transaction interaction and API assertion
+│   ├── fund-transfer-page.ts      # Fund transfer interaction
 │   ├── base-page.ts               # Base page with common functionality
 │   ├── home.page.ts               # Home page interactions
 │   ├── login-page.ts              # Login page interactions
